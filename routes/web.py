@@ -1,9 +1,16 @@
 """Web Routes."""
 
-from masonite.routes import Get, Post, Match
+from masonite.routes import Get, Match, RouteGroup
 
 ROUTES = [
     Get().route('/', 'WelcomeController@show').name('welcome'),
-    Match(['GET', 'POST'], '/home/@name', 'HomeController@show').name('home-with-name'),
-    Match(['GET', 'POST'], '/home', 'HomeController@show').name('home-without-name'),
+
+    RouteGroup(
+        [
+            Match(['GET', 'POST'], '/@name', 'HomeController@show').name('with-name'),
+            Match(['GET', 'POST'], '/', 'HomeController@show').name('without-name'),
+        ],
+        prefix = '/home',
+        name = 'home-',
+    )
 ]
