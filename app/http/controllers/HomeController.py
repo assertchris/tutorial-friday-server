@@ -7,4 +7,4 @@ class HomeController:
     """HomeController Controller Class."""
 
     def show(self, view: View, request: Request):
-        return 'hello ' + request.param('name')
+        return 'hello ' + (request.param('name') or request.input('name'))
