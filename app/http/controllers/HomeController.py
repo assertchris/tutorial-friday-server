@@ -15,4 +15,4 @@ class HomeController:
         self.request = request
 
     def show(self, view: View):
-        pass
+        return 'hello world'
