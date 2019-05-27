@@ -5,14 +5,6 @@ from masonite.view import View
 
 class HomeController:
     """HomeController Controller Class."""
-    
-    def __init__(self, request: Request):
-        """HomeController Initializer
-        
-        Arguments:
-            request {masonite.request.Request} -- The Masonite Request class.
-        """
-        self.request = request
 
-    def show(self, view: View):
-        return 'hello ' + self.request.param('name')
+    def show(self, view: View, request: Request):
+        return 'hello ' + request.param('name')
