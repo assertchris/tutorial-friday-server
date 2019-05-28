@@ -1,0 +1,27 @@
+{
+  "name": "friday-server",
+  "version": "1.0.0",
+  "description": "<p align=\"center\"> <img src=\"https://i.imgur.com/rEXcoMn.png\" width=\"160px\">  </p>",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tailwindcss": "^1.0.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/assertchris/friday-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/assertchris/friday-server/issues"
+  },
+  "homepage": "https://github.com/assertchris/friday-server#readme"
+}
