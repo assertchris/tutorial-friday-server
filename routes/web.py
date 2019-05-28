@@ -12,5 +12,13 @@ ROUTES = [
         ],
         prefix = '/home',
         name = 'home-',
-    )
+    ),
+
+    RouteGroup(
+        [
+            Get().route('/', 'PodcastController@show_search').name('-show-search')
+        ],
+        prefix = '/podcasts',
+        name = 'podcasts',
+    ),
 ]
