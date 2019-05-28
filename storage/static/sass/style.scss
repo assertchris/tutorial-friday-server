@@ -2,3 +2,23 @@
 @import "node_modules/tailwindcss/dist/components";
 @import "node_modules/tailwindcss/dist/utilities";
 
+h1 {
+    @extend .text-xl;
+    @extend .font-normal;
+    @extend .text-red-500;
+}
+
+input {
+    @extend .outline-none;
+    @extend .focus\:shadow-md;
+    @extend .px-2;
+    @extend .py-1;
+    @extend .border-b-2;
+    @extend .border-red-500;
+    @extend .bg-transparent;
+
+    &[type="button"], &[type="submit"] {
+        @extend .bg-red-500;
+        @extend .text-white;
+    }
+}
