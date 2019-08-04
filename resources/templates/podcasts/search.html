@@ -8,53 +8,27 @@
         <input type="submit" value="search" />
     </form>
     <div class="flex flex-row flex-wrap">
-        <div class="w-full md:w-2/5 mr-2 flex flex-row pb-2">
-            <div class="min-h-full w-48 bg-red-300"></div>
-            <div class="p-4 flex flex-col flex-grow">
-                <div class="mb-8 flex flex-col flex-grow">
-                    <div class="text-xl mb-2">Title</div>
-                    <p class="text-base">Description</p>
-                </div>
-                <div class="flex flex-grow items-center">
-                    <div class="w-10 h-10 bg-red-300"></div>
-                    <div class="text-sm ml-4">
-                        <p class="leading-none">Author</p>
-                        <p class="">date</p>
+        @if podcasts|length > 0
+            @for podcast in podcasts
+                <div class="w-full md:w-2/5 mr-2 flex flex-row pb-2">
+                    <div class="min-h-full w-48 bg-red-300"></div>
+                    <div class="p-4 flex flex-col flex-grow">
+                        <div class="mb-8 flex flex-col flex-grow">
+                            <div class="text-xl mb-2">Title</div>
+                            <p class="text-base">Description</p>
+                        </div>
+                        <div class="flex flex-grow items-center">
+                            <div class="w-10 h-10 bg-red-300"></div>
+                            <div class="text-sm ml-4">
+                                <p class="leading-none">Author</p>
+                                <p class="">date</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="w-full md:w-2/5 mr-2 flex flex-row pb-2">
-            <div class="min-h-full w-48 bg-red-300"></div>
-            <div class="p-4 flex flex-col flex-grow">
-                <div class="mb-8 flex flex-col flex-grow">
-                    <div class="text-xl mb-2">Title</div>
-                    <p class="text-base">Description</p>
-                </div>
-                <div class="flex flex-grow items-center">
-                    <div class="w-10 h-10 bg-red-300"></div>
-                    <div class="text-sm ml-4">
-                        <p class="leading-none">Author</p>
-                        <p class="">date</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="w-full md:w-2/5 mr-2 flex flex-row pb-2">
-            <div class="min-h-full w-48 bg-red-300"></div>
-            <div class="p-4 flex flex-col flex-grow">
-                <div class="mb-8 flex flex-col flex-grow">
-                    <div class="text-xl mb-2">Title</div>
-                    <p class="text-base">Description</p>
-                </div>
-                <div class="flex flex-grow items-center">
-                    <div class="w-10 h-10 bg-red-300"></div>
-                    <div class="text-sm ml-4">
-                        <p class="leading-none">Author</p>
-                        <p class="">date</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+            @endfor
+        @else
+            No podcasts matching the search terms
+        @endif
     </div>
 @endblock
