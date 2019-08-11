@@ -5,6 +5,10 @@ from masonite.view import View
 
 
 class PodcastController(Controller):
+    def __init__(self, request: Request):
+        self.client = request.app().make('HttpClient')
+        self.parser = request.app().make('RssParser')
+
     def show_search(self, view: View):
         return view.render('podcasts.search', {
             'podcasts': self.get_podcasts()
@@ -12,7 +16,7 @@ class PodcastController(Controller):
 
     def get_podcasts(self, query=''):
         if query:
-            dd(query)
+            dd([query, self.client, self.parser])
 
         return []
 
@@ -25,6 +29,6 @@ class PodcastController(Controller):
             request.session.flash('errors', errors)
             return request.back()
 
-        return view.render('podcast.search', {
+        return view.render('podcasts.search', {
             'podcasts': self.get_podcasts(request.input('terms'))
         })
