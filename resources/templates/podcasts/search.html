@@ -1,8 +1,18 @@
 @extends 'layout.html'
 
 @block content
+    @if session().has('errors')
+        <div class="bg-red-100 px-2 pt-2 pb-1 mb-2">
+            @for field in session().get('errors')
+                <div class="mb-1">
+                    {{ session().get('errors')[field]|join('. ') }}
+                </div>
+            @endfor
+        </div>
+    @endif
     <h1 class="pb-2">Podcast search</h1>
-    <form class="pb-2">
+    <form class="pb-2" method="POST">
+        {{ csrf_field }}
         <label for="terms" class="hidden">Terms:</label>
         <input type="search" name="terms" id="terms" />
         <input type="submit" value="search" />

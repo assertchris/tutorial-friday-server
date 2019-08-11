@@ -1,9 +1,9 @@
 """Web Routes."""
 
-from masonite.routes import Get, Match, RouteGroup
+from masonite.routes import Get, Post, Match, RouteGroup
 
 ROUTES = [
-    Get().route('/', 'WelcomeController@show').name('welcome'),
+    Get('/', 'WelcomeController@show').name('welcome'),
 
     RouteGroup(
         [
@@ -16,7 +16,8 @@ ROUTES = [
 
     RouteGroup(
         [
-            Get().route('/', 'PodcastController@show_search').name('-show-search')
+            Get('/', 'PodcastController@show_search').name('-show-search'),
+            Post('/', 'PodcastController@do_search').name('-do-search')
         ],
         prefix = '/podcasts',
         name = 'podcasts',

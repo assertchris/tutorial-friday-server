@@ -3,8 +3,9 @@
 from masonite.request import Request
 from masonite.response import Response
 from masonite.view import View
+from masonite.controllers import Controller
 
-class HomeController:
+class HomeController(Controller):
     """HomeController Controller Class."""
 
     def show(self, view: View, request: Request, response: Response):
