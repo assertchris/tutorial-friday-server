@@ -16,7 +16,8 @@ class PodcastController(Controller):
 
     def get_podcasts(self, query=''):
         if query:
-            dd([query, self.client, self.parser])
+            response = self.client.get('https://itunes.apple.com/search?media=podcast&term=' + query)
+            return response.json()['results']
 
         return []
 
@@ -30,5 +31,7 @@ class PodcastController(Controller):
             return request.back()
 
         return view.render('podcasts.search', {
-            'podcasts': self.get_podcasts(request.input('terms'))
+            'podcasts': self.get_podcasts(
+                request.input('terms')
+            )
         })
