@@ -4,6 +4,7 @@ from masonite.request import Request
 from masonite.response import Response
 from masonite.validation import Validator
 from masonite.view import View
+from app.Subscription import Subscription
 
 
 class PodcastController(Controller):
@@ -40,9 +41,12 @@ class PodcastController(Controller):
         })
 
     def show_subscriptions(self, view: View):
-        favorites = DB.table('subscriptions').where('favorite', True).get()
+        # favorites = DB.table('subscriptions').where('favorite', True).get()
+        favorites = Subscription.where('favorite', True).get()
 
-        subscriptions = DB.table('subscriptions').where(
+        # subscriptions = DB.table('subscriptions').where(
+        #     'favorite', '!=', True).get()
+        subscriptions = Subscription.where(
             'favorite', '!=', True).get()
 
         return view.render('podcasts.subscriptions', {
@@ -51,20 +55,31 @@ class PodcastController(Controller):
         })
 
     def do_favorite(self, request: Request):
-        DB.table('subscriptions').where('id', request.param('id')).update({
-            'favorite': True,
-        })
+        # DB.table('subscriptions').where('id', request.param('id')).update({
+        #     'favorite': True,
+        # })
+
+        subscription = Subscription.find(request.param('id'))
+        subscription.favorite = True
+        subscription.save()
 
         return request.redirect_to('podcasts-show-subscriptions')
 
     def do_unfavorite(self, request: Request):
-        DB.table('subscriptions').where('id', request.param('id')).update({
-            'favorite': False,
-        })
+        # DB.table('subscriptions').where('id', request.param('id')).update({
+        #     'favorite': False,
+        # })
+
+        subscription = Subscription.find(request.param('id'))
+        subscription.favorite = False
+        subscription.save()
 
         return request.redirect_to('podcasts-show-subscriptions')
 
     def do_unsubscribe(self, request: Request):
-        DB.table('subscriptions').where('id', request.param('id')).delete()
+        # DB.table('subscriptions').where('id', request.param('id')).delete()
+
+        subscription = Subscription.find(request.param('id'))
+        subscription.delete()
 
         return request.redirect_to('podcasts-show-subscriptions')

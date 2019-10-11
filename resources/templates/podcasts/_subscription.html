@@ -2,17 +2,17 @@
     <div class="text-grey-darker">{{ subscription.title }}</div>
     <div class="text-sm text-grey">{{ subscription.url }}</div>
     <div class="text-sm text-grey">
-        <form class="inline-flex" action="{{ route('podcasts-favorite-subscription', subscription) }}" method="POST">
+        <form class="inline-flex" action="{{ route('podcasts-favorite-subscription', {'id': subscription.id}) }}" method="POST">
             {{ csrf_field }}
             {{ request_method('PATCH') }}
             <button onclick="event.preventDefault(); this.form.submit()">favorite</button>
         </form>
-        <form class="inline-flex" action="{{ route('podcasts-unfavorite-subscription', subscription) }}" method="POST">
+        <form class="inline-flex" action="{{ route('podcasts-unfavorite-subscription', {'id': subscription.id}) }}" method="POST">
             {{ csrf_field }}
             {{ request_method('PATCH') }}
             <button onclick="event.preventDefault(); this.form.submit()">unfavorite</button>
         </form>
-        <form class="inline-flex" action="{{ route('podcasts-unsubscribe', subscription) }}" method="POST">
+        <form class="inline-flex" action="{{ route('podcasts-unsubscribe', {'id': subscription.id}) }}" method="POST">
             {{ csrf_field }}
             {{ request_method('DELETE') }}
             <button onclick="event.preventDefault(); this.form.submit()">unsubscribe</button>
