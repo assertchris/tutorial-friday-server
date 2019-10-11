@@ -12,5 +12,10 @@
             {{ request_method('PATCH') }}
             <button onclick="event.preventDefault(); this.form.submit()">unfavorite</button>
         </form>
+        <form class="inline-flex" action="{{ route('podcasts-unsubscribe', subscription) }}" method="POST">
+            {{ csrf_field }}
+            {{ request_method('DELETE') }}
+            <button onclick="event.preventDefault(); this.form.submit()">unsubscribe</button>
+        </form>
     </div>
 </div>

@@ -1,4 +1,4 @@
-from masonite.routes import Get, Patch, Post, Match, RouteGroup
+from masonite.routes import Delete, Get, Patch, Post, Match, RouteGroup
 
 ROUTES = [
     Get('/', 'WelcomeController@show').name('welcome'),
@@ -24,6 +24,8 @@ ROUTES = [
                   'PodcastController@do_favorite').name('-favorite-subscription'),
             Patch('/subscriptions/@id/unfavorite',
                   'PodcastController@do_unfavorite').name('-unfavorite-subscription'),
+            Delete('/subscriptions/@id/unsubscribe',
+                   'PodcastController@do_unsubscribe').name('-unsubscribe'),
         ],
         prefix='/podcasts',
         name='podcasts',

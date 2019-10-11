@@ -63,3 +63,8 @@ class PodcastController(Controller):
         })
 
         return request.redirect_to('podcasts-show-subscriptions')
+
+    def do_unsubscribe(self, request: Request):
+        DB.table('subscriptions').where('id', request.param('id')).delete()
+
+        return request.redirect_to('podcasts-show-subscriptions')
