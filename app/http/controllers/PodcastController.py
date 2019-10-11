@@ -1,3 +1,4 @@
+from config.database import DB
 from masonite.controllers import Controller
 from masonite.request import Request
 from masonite.validation import Validator
@@ -16,7 +17,8 @@ class PodcastController(Controller):
 
     def get_podcasts(self, query=''):
         if query:
-            response = self.client.get('https://itunes.apple.com/search?media=podcast&term=' + query)
+            response = self.client.get(
+                'https://itunes.apple.com/search?media=podcast&term=' + query)
             return response.json()['results']
 
         return []
@@ -34,4 +36,11 @@ class PodcastController(Controller):
             'podcasts': self.get_podcasts(
                 request.input('terms')
             )
+        })
+
+    def show_subscriptions(self, view: View):
+        subscriptions = DB.table('subscriptions').get()
+
+        return view.render('podcasts.subscriptions', {
+            'subscriptions': subscriptions,
         })
