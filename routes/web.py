@@ -1,6 +1,4 @@
-"""Web Routes."""
-
-from masonite.routes import Get, Post, Match, RouteGroup
+from masonite.routes import Get, Patch, Post, Match, RouteGroup
 
 ROUTES = [
     Get('/', 'WelcomeController@show').name('welcome'),
@@ -21,7 +19,11 @@ ROUTES = [
             Get('/', 'PodcastController@show_search').name('-show-search'),
             Post('/', 'PodcastController@do_search').name('-do-search'),
             Get('/subscriptions',
-                'PodcastController@show_subscriptions').name('-show-subscriptions')
+                'PodcastController@show_subscriptions').name('-show-subscriptions'),
+            Patch('/subscriptions/@id/favorite',
+                  'PodcastController@do_favorite').name('-favorite-subscription'),
+            Patch('/subscriptions/@id/unfavorite',
+                  'PodcastController@do_unfavorite').name('-unfavorite-subscription'),
         ],
         prefix='/podcasts',
         name='podcasts',

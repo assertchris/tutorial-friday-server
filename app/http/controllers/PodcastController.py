@@ -1,6 +1,7 @@
 from config.database import DB
 from masonite.controllers import Controller
 from masonite.request import Request
+from masonite.response import Response
 from masonite.validation import Validator
 from masonite.view import View
 
@@ -39,8 +40,26 @@ class PodcastController(Controller):
         })
 
     def show_subscriptions(self, view: View):
-        subscriptions = DB.table('subscriptions').get()
+        favorites = DB.table('subscriptions').where('favorite', True).get()
+
+        subscriptions = DB.table('subscriptions').where(
+            'favorite', '!=', True).get()
 
         return view.render('podcasts.subscriptions', {
+            'favorites': favorites,
             'subscriptions': subscriptions,
         })
+
+    def do_favorite(self, request: Request):
+        DB.table('subscriptions').where('id', request.param('id')).update({
+            'favorite': True,
+        })
+
+        return request.redirect_to('podcasts-show-subscriptions')
+
+    def do_unfavorite(self, request: Request):
+        DB.table('subscriptions').where('id', request.param('id')).update({
+            'favorite': False,
+        })
+
+        return request.redirect_to('podcasts-show-subscriptions')

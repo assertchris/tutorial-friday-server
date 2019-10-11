@@ -10,4 +10,5 @@ class SubscriptionsTableSeeder(Seeder):
         DB.table('subscriptions').insert({
             'url': fake.uri(),
             'title': fake.sentence(),
+            'favorite': fake.null_boolean(),
         })

@@ -1,6 +1,16 @@
 @extends 'layout.html'
 
 @block content
+    <h1 class="pb-2">Favorites</h1>
+    <div class="flex flex-row flex-wrap">
+        @if favorites|length > 0
+            @for subscription in favorites
+                @include 'podcasts/_subscription.html'
+            @endfor
+        @else
+            No subscriptions
+        @endif
+    </div>
     <h1 class="pb-2">Subscriptions</h1>
     <div class="flex flex-row flex-wrap">
         @if subscriptions|length > 0

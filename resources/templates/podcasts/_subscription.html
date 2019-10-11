@@ -1,4 +1,16 @@
 <div class="w-full flex flex-col pb-2">
     <div class="text-grey-darker">{{ subscription.title }}</div>
     <div class="text-sm text-grey">{{ subscription.url }}</div>
+    <div class="text-sm text-grey">
+        <form class="inline-flex" action="{{ route('podcasts-favorite-subscription', subscription) }}" method="POST">
+            {{ csrf_field }}
+            {{ request_method('PATCH') }}
+            <button onclick="event.preventDefault(); this.form.submit()">favorite</button>
+        </form>
+        <form class="inline-flex" action="{{ route('podcasts-unfavorite-subscription', subscription) }}" method="POST">
+            {{ csrf_field }}
+            {{ request_method('PATCH') }}
+            <button onclick="event.preventDefault(); this.form.submit()">unfavorite</button>
+        </form>
+    </div>
 </div>
