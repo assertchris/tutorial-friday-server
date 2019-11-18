@@ -1,14 +1,14 @@
-"""A HomeController Module."""
-
+from masonite.auth import Auth
 from masonite.request import Request
-from masonite.response import Response
 from masonite.view import View
-from masonite.controllers import Controller
 
-class HomeController(Controller):
-    """HomeController Controller Class."""
 
-    def show(self, view: View, request: Request, response: Response):
+class HomeController:
+
+    def show(self, request: Request, view: View, auth: Auth):
+        if not auth.user():
+            request.redirect('/login')
+
         return view.render('home', {
             'name': request.param('name') or request.input('name'),
         })
