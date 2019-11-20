@@ -1,5 +1,6 @@
 """A LoginController Module."""
 
+from config import auth as auth_config
 from masonite.auth import Auth
 from masonite.request import Request
 from masonite.view import View
@@ -37,7 +38,7 @@ class LoginController:
         Returns:
             masonite.request.Request -- The Masonite request class.
         """
-        if auth.login(request.input('email'), request.input('password')):
+        if auth.login(request.input(auth_config.AUTH['model'].__auth__), request.input('password')):
             return request.redirect('/home')
 
         return request.redirect('/login')

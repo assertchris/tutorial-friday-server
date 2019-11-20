@@ -1,11 +1,7 @@
-"""User Model."""
-
 from config.database import Model
+from masonite.auth import MustVerifyEmail
 
 
-class User(Model):
-    """User Model."""
-
+class User(Model, MustVerifyEmail):
     __fillable__ = ['name', 'email', 'password']
-
     __auth__ = 'email'

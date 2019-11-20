@@ -6,8 +6,8 @@ from masonite.view import View
 class HomeController:
 
     def show(self, request: Request, view: View, auth: Auth):
-        if not auth.user():
-            request.redirect('/login')
+        # if not auth.user():
+        #     request.redirect('/login')
 
         return view.render('home', {
             'name': request.param('name') or request.input('name'),

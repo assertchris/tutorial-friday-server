@@ -7,12 +7,16 @@ ROUTES = [
         [
             Match(['GET', 'POST'], '/@name',
                   'HomeController@show').name('with-name'),
-            Match(['GET', 'POST'], '/',
-                  'HomeController@show').name('without-name'),
+            # Match(['GET', 'POST'], '/',
+            #       'HomeController@show').name('without-name'),
         ],
         prefix='/home',
         name='home-',
+        middleware=['auth', 'verified'],
     ),
+
+    Match(['GET', 'POST'], '/home',
+          'HomeController@show').name('without-name').middleware('auth', 'verified'),
 
     RouteGroup(
         [
@@ -38,7 +42,7 @@ ROUTES = ROUTES + [
     Post().route('/login', 'LoginController@store'),
     Get().route('/register', 'RegisterController@show').name('register'),
     Post().route('/register', 'RegisterController@store'),
-    Get().route('/home', 'HomeController@show').name('home'),
+    # Get().route('/home', 'HomeController@show').name('home'),
     Get().route('/email/verify', 'ConfirmController@verify_show').name('verify'),
     Get().route('/email/verify/send', 'ConfirmController@send_verify_email'),
     Get().route('/email/verify/@id:signed', 'ConfirmController@confirm_email'),
