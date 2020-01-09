@@ -7,9 +7,16 @@
         </div>
         <div class="flex flex-grow items-center">
             <!-- <div class="w-10 h-10 bg-red-300"></div> -->
-            <div class="text-sm">
+            <div class="text-sm flex flex-col">
                 <p class="leading-none">{{ podcast.artistName }}</p>
                 <!-- <p class="">date</p> -->
+                <form action="{{ route('podcasts-subscribe') }}" method="POST">
+                    {{ csrf_field }}
+                    {{ request_method('POST') }}
+                    <input type="hidden" name="url" value="{{ podcast.feedUrl }}">
+                    <input type="hidden" name="title" value="{{ podcast.collectionName }}">
+                    <button onclick="event.preventDefault(); this.form.submit()">subscribe</button>
+                </form>
             </div>
         </div>
     </div>

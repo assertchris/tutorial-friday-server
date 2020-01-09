@@ -18,4 +18,9 @@
             <button onclick="event.preventDefault(); this.form.submit()">unsubscribe</button>
         </form>
     </div>
+    <ol class="list-decimal">
+        @for episode in subscription.episodes[:5]
+            <li>{{ episode.title }}</li>
+        @endfor
+    </ol>
 </div>

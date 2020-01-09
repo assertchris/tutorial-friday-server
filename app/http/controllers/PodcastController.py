@@ -5,6 +5,7 @@ from masonite.response import Response
 from masonite.validation import Validator
 from masonite.view import View
 from app.Subscription import Subscription
+import feedparser
 
 
 class PodcastController(Controller):
@@ -41,18 +42,31 @@ class PodcastController(Controller):
         })
 
     def show_subscriptions(self, view: View):
-        # favorites = DB.table('subscriptions').where('favorite', True).get()
         favorites = Subscription.where('favorite', True).get()
+        subscriptions = Subscription.where('favorite', '!=', True).get()
 
-        # subscriptions = DB.table('subscriptions').where(
-        #     'favorite', '!=', True).get()
-        subscriptions = Subscription.where(
-            'favorite', '!=', True).get()
+        self.get_episodes(favorites)
+        self.get_episodes(subscriptions)
 
         return view.render('podcasts.subscriptions', {
             'favorites': favorites,
             'subscriptions': subscriptions,
         })
+
+    def get_episodes(self, podcasts):
+        for podcast in podcasts:
+            podcast.episodes = []
+
+            for entry in feedparser.parse(podcast.url).entries:
+                enclosure = next(
+                    link for link in entry.links if link.rel == 'enclosure'
+                )
+
+                if (enclosure):
+                    podcast.episodes.append({
+                        'title': entry.title,
+                        'enclosure': enclosure,
+                    })
 
     def do_favorite(self, request: Request):
         # DB.table('subscriptions').where('id', request.param('id')).update({
@@ -81,5 +95,14 @@ class PodcastController(Controller):
 
         subscription = Subscription.find(request.param('id'))
         subscription.delete()
+
+        return request.redirect_to('podcasts-show-subscriptions')
+
+    def do_subscribe(self, request: Request):
+        Subscription.create({
+            'url': request.input('url'),
+            'title': request.input('title'),
+            'favorite': False,
+        })
 
         return request.redirect_to('podcasts-show-subscriptions')

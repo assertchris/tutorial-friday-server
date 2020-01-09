@@ -30,6 +30,7 @@ ROUTES = [
                   'PodcastController@do_unfavorite').name('-unfavorite-subscription'),
             Delete('/subscriptions/@id/unsubscribe',
                    'PodcastController@do_unsubscribe').name('-unsubscribe'),
+            Post('/subscribe', 'PodcastController@do_subscribe').name('-subscribe'),
         ],
         prefix='/podcasts',
         name='podcasts',
