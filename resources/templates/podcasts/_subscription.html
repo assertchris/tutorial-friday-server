@@ -20,7 +20,17 @@
     </div>
     <ol class="list-decimal">
         @for episode in subscription.episodes[:5]
-            <li>{{ episode.title }}</li>
+            <li>
+                {{ episode.title }}
+                @if episode.is_downloaded != True
+                    <form action="{{ route('podcasts-download') }}" method="POST">
+                        {{ csrf_field }}
+                        {{ request_method('POST') }}
+                        <input type="hidden" name="url" value="{{ episode.enclosure.href }}">
+                        <button onclick="event.preventDefault(); this.form.submit()">download</button>
+                    </form>
+                @endif
+            </li>
         @endfor
     </ol>
 </div>

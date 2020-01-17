@@ -6,6 +6,10 @@ from masonite.validation import Validator
 from masonite.view import View
 from app.Subscription import Subscription
 import feedparser
+from app.jobs.DownloadEpisode import DownloadEpisode
+from masonite import Queue
+from os import path
+import base64
 
 
 class PodcastController(Controller):
@@ -63,9 +67,19 @@ class PodcastController(Controller):
                 )
 
                 if (enclosure):
+                    encodedBytes = base64.b64encode(
+                        enclosure.href.encode("utf-8"))
+                    name = str(encodedBytes, "utf-8")
+
+                    is_downloaded = False
+
+                    if path.exists('storage/episodes/' + name + '.mp3'):
+                        is_downloaded = True
+
                     podcast.episodes.append({
                         'title': entry.title,
                         'enclosure': enclosure,
+                        'is_downloaded': is_downloaded,
                     })
 
     def do_favorite(self, request: Request):
@@ -104,5 +118,13 @@ class PodcastController(Controller):
             'title': request.input('title'),
             'favorite': False,
         })
+
+        return request.redirect_to('podcasts-show-subscriptions')
+
+    def do_download(self, request: Request, queue: Queue):
+        url = request.input('url')
+        folder = 'storage/episodes'
+
+        queue.push(DownloadEpisode(url, folder))
 
         return request.redirect_to('podcasts-show-subscriptions')

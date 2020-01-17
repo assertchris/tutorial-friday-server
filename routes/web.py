@@ -31,6 +31,7 @@ ROUTES = [
             Delete('/subscriptions/@id/unsubscribe',
                    'PodcastController@do_unsubscribe').name('-unsubscribe'),
             Post('/subscribe', 'PodcastController@do_subscribe').name('-subscribe'),
+            Post('/download', 'PodcastController@do_download').name('-download'),
         ],
         prefix='/podcasts',
         name='podcasts',
