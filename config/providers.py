@@ -11,7 +11,8 @@ from masonite.validation.providers.ValidationProvider import ValidationProvider
 
 from app.providers import (
     HttpClientProvider,
-    RssParserProvider
+    RssParserProvider,
+    CraftProvider,
 )
 
 """Providers List
@@ -46,5 +47,6 @@ PROVIDERS = [
     # Application Providers
     HttpClientProvider,
     RssParserProvider,
+    CraftProvider,
 
 ]

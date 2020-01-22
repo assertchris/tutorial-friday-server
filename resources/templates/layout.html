@@ -10,5 +10,37 @@
                 <!-- template content will be put here-->
             @endblock
         </div>
+        @include '_message.html'
+        <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
+        <script>
+            Pusher.logToConsole = true;
+
+            var pusher = new Pusher('c158052fb78ff1c7b4b2', {
+                cluster: 'eu',
+                forceTLS: true
+            });
+
+            var channel = pusher.subscribe('my-channel');
+            var message = document.querySelector('.message');
+            var messageClose = message.querySelector('button');
+            var messageText = message.querySelector('div');
+
+            messageClose.addEventListener('click', function() {
+                message.classList.remove('flex');
+                message.classList.add('hidden');
+            });
+
+            channel.bind('my-event', function(data) {
+                messageText.innerHTML = data.message;
+
+                message.classList.remove('hidden');
+                message.classList.add('flex');
+
+                setTimeout(function() {
+                    message.classList.remove('flex');
+                    message.classList.add('hidden');
+                }, 1000 * 5 /* 5 seconds */)
+            });
+        </script>
     </body>
 </html>
